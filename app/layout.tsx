@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Luckiest_Guy } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -9,6 +11,12 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
 	variable: "--font-geist-mono",
+	subsets: ["latin"],
+});
+
+const luckiestGuy = Luckiest_Guy({
+	variable: "--font-luckiest-guy",
+	weight: "400",
 	subsets: ["latin"],
 });
 
@@ -25,7 +33,15 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+			<body
+				className={`${geistSans.variable} ${geistMono.variable} ${luckiestGuy.variable} antialiased intel-regular`}
+			>
+				<div className="min-h-screen flex flex-col">
+					<Header />
+					<main className="flex-1">{children}</main>
+					<Footer />
+				</div>
+			</body>
 		</html>
 	);
 }
