@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Luckiest_Guy } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+import AppLayout from "@/components/app-layout";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -36,11 +38,15 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} ${luckiestGuy.variable} antialiased intel-regular`}
 			>
-				<div className="min-h-screen flex flex-col">
-					<Header />
-					<main className="flex-1">{children}</main>
-					<Footer />
-				</div>
+				<NuqsAdapter>
+					<div className="min-h-screen flex flex-col">
+						<Header />
+						<main className="flex-1">
+							<AppLayout>{children}</AppLayout>
+						</main>
+						<Footer />
+					</div>
+				</NuqsAdapter>
 			</body>
 		</html>
 	);
