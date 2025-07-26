@@ -16,11 +16,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { FAQForm } from "@/lib/types";
 
 export default function ManualMode() {
   const faqSchema = z.object({
-    question: z.string().trim().nonempty({ error: "Question is required" }),
-    answer: z.string().trim().nonempty({ error: "Answer is required" }),
+    question: z.string().trim().nonempty({ error: "Please enter a question" }),
+    answer: z.string().trim().nonempty({ error: "Please enter an answer" }),
   });
 
   const faqsSchema = z.object({
@@ -49,6 +50,22 @@ export default function ManualMode() {
   function onSubmit(data: FaqFormValues) {
     console.log(data);
   }
+
+  React.useEffect(() => {
+    const savedFormData = localStorage.getItem("FAQ_FORM_DATA");
+    if (savedFormData) {
+      const parsedData = JSON.parse(savedFormData);
+      Object.entries(parsedData).forEach(([key, value]) => {
+        form.setValue(key as keyof FAQForm, value as FAQForm[keyof FAQForm]);
+      });
+    }
+
+    const subscription = form.watch((value) => {
+      localStorage.setItem("FAQ_FORM_DATA", JSON.stringify(value));
+    });
+
+    return () => subscription.unsubscribe();
+  }, [form]);
 
   return (
     <>
@@ -89,27 +106,29 @@ export default function ManualMode() {
                 )}
               />
 
-              <Button
-                type="button"
-                variant={"destructive"}
-                onClick={() => remove(index)}
-              >
-                Remove
-              </Button>
+              {fields.length > 1 && (
+                <Button
+                  type="button"
+                  variant={"destructive"}
+                  onClick={() => remove(index)}
+                >
+                  Remove
+                </Button>
+              )}
             </div>
           ))}
 
           <Button
             type="button"
             variant={"secondary"}
-            className="w-full mt-0"
+            className="w-full"
             size={"lg"}
             onClick={() => append({ question: "", answer: "" })}
           >
             Add FAQ
           </Button>
 
-          <Button className="mt-0 w-full" size={"lg"}>
+          <Button className="w-full" size={"lg"}>
             Continue
           </Button>
         </form>
