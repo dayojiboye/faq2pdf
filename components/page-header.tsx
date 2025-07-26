@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import { Button } from "./ui/button";
 import { ArrowLeft } from "lucide-react";
@@ -26,8 +27,8 @@ export default function PageHeader({ title, description, onBack }: PageHeaderPro
 			>
 				<ArrowLeft /> Back
 			</Button>
-			{title && <h1 className="text-xl intel-bold">{title}</h1>}
-			{description && <p className="mt-2 text-base intel-medium">{description}</p>}
+			{title && <h1 className="text-xl font-bold">{title}</h1>}
+			{description && <p className="mt-2 text-base">{description}</p>}
 		</div>
 	);
 }

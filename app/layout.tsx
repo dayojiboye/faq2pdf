@@ -36,7 +36,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} ${luckiestGuy.variable} antialiased intel-regular`}
+				className={`${geistSans.variable} ${geistMono.variable} ${luckiestGuy.variable} antialiased font-sans`}
 			>
 				<NuqsAdapter>
 					<div className="min-h-screen flex flex-col">

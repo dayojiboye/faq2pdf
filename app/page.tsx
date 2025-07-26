@@ -6,7 +6,7 @@ export default function HomePage() {
 	return (
 		<>
 			<Logo className="mx-auto text-5xl lg:text-5xl [&>span]:text-2xl lg:[&>span]:text-3xl" />
-			<p className="mt-2 mx-auto text-center intel-medium">
+			<p className="mt-2 mx-auto text-center">
 				Generate professional PDF documents from your FAQs using AI. Fast, accurate, and
 				hassle-free.
 			</p>
