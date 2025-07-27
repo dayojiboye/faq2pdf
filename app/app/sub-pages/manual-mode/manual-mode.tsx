@@ -3,7 +3,7 @@ import { useQueryState, parseAsStringLiteral } from "nuqs";
 import FaqForm from "./faq-form";
 import Summary from "../shared/summary";
 
-const viewValues = ["form", "summary", "pdf-result"] as const;
+const viewValues = ["form", "summary"] as const;
 
 export default function ManualMode() {
   const [view, setView] = useQueryState(
@@ -11,17 +11,8 @@ export default function ManualMode() {
     parseAsStringLiteral(viewValues)
   );
 
-  if (view === "pdf-result") {
-    return <></>;
-  }
-
   if (view === "summary") {
-    return (
-      <Summary
-        goForward={() => setView("pdf-result")}
-        goBack={() => setView("form")}
-      />
-    );
+    return <Summary goBack={() => setView("form")} />;
   }
 
   return (
