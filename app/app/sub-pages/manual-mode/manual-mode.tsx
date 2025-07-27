@@ -15,9 +15,5 @@ export default function ManualMode() {
     return <Summary goBack={() => setView("form")} />;
   }
 
-  return (
-    <>
-      <FaqForm goForward={() => setView("summary")} />
-    </>
-  );
+  return <FaqForm goForward={() => setView("summary")} />;
 }

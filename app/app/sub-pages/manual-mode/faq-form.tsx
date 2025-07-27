@@ -19,8 +19,8 @@ import { FAQ_FORM_DATA } from "@/lib/constants";
 
 export default function FaqForm({ goForward }: { goForward: () => void }) {
   const faqSchema = z.object({
-    question: z.string().trim().nonempty({ error: "Please enter a question" }),
-    answer: z.string().trim().nonempty({ error: "Please enter an answer" }),
+    question: z.string().trim().nonempty({ error: "Please enter question" }),
+    answer: z.string().trim().nonempty({ error: "Please enter answer" }),
   });
 
   const faqsSchema = z.object({
