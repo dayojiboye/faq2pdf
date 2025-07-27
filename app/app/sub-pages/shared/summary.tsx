@@ -10,9 +10,10 @@ import { scrollToTop } from "@/lib/utils";
 
 type SummaryProps = {
   goBack: () => void;
+  isScrape?: boolean;
 };
 
-export default function Summary({ goBack }: SummaryProps) {
+export default function Summary({ goBack, isScrape }: SummaryProps) {
   const [faqData, setFaqData] = React.useState<FAQForm>();
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -32,7 +33,7 @@ export default function Summary({ goBack }: SummaryProps) {
       <PageHeader
         onBack={goBack}
         title="Review and Finalize Your FAQs"
-        description="Here’s a preview of your PDF. Review the content and generate your final version when you're ready."
+        description="Here’s a preview of your PDF. Review the content and download when you're ready."
       />
 
       <div className="mt-8">
@@ -62,16 +63,18 @@ export default function Summary({ goBack }: SummaryProps) {
                 </PDFDownloadLink>
               </Button>
 
-              <Button
-                size="lg"
-                variant={"ghost"}
-                onClick={() => {
-                  scrollToTop();
-                  goBack();
-                }}
-              >
-                Edit PDF
-              </Button>
+              {!isScrape && (
+                <Button
+                  size="lg"
+                  variant={"ghost"}
+                  onClick={() => {
+                    scrollToTop();
+                    goBack();
+                  }}
+                >
+                  Edit PDF
+                </Button>
+              )}
             </div>
           </>
         ) : (

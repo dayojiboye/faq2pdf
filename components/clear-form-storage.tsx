@@ -3,6 +3,7 @@
 import React from "react";
 import { Button, buttonVariants } from "./ui/button";
 import { VariantProps } from "class-variance-authority";
+import { FAQ_FORM_DATA } from "@/lib/constants";
 
 type ClearFormStorageProps = {
   children: React.ReactNode;
@@ -17,7 +18,7 @@ export default function ClearFormStorage({
     <Button
       size={"lg"}
       asChild
-      onClick={() => localStorage.removeItem("FAQ_FORM_DATA")}
+      onClick={() => localStorage.removeItem(FAQ_FORM_DATA)}
       {...props}
     >
       {children}
