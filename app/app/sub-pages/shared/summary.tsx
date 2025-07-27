@@ -3,18 +3,28 @@ import { Button } from "@/components/ui/button";
 import { FAQ_FORM_DATA } from "@/lib/constants";
 import { FAQForm } from "@/lib/types";
 import React from "react";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import PdfDocument from "@/components/pdf-document";
+import LoadingSpinner from "@/components/loading-spinner";
+import { scrollToTop } from "@/lib/utils";
 
 type SummaryProps = {
-  goForward: () => void;
   goBack: () => void;
 };
 
-export default function Summary({ goForward, goBack }: SummaryProps) {
+export default function Summary({ goBack }: SummaryProps) {
   const [faqData, setFaqData] = React.useState<FAQForm>();
+  const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
+    const loadingTimeout = setTimeout(() => {
+      if (typeof window !== "undefined") setIsLoading(false);
+    }, 100);
+
     const savedData = localStorage.getItem(FAQ_FORM_DATA);
     if (savedData) setFaqData(JSON.parse(savedData));
+
+    return () => clearTimeout(loadingTimeout);
   }, []);
 
   return (
@@ -22,23 +32,48 @@ export default function Summary({ goForward, goBack }: SummaryProps) {
       <PageHeader
         onBack={goBack}
         title="Review and Finalize Your FAQs"
-        description="Here's a final look at your FAQs. Review the content below and make any last edits before generating your PDF."
+        description="Here’s a preview of your PDF. Review the content and generate your final version when you're ready."
       />
 
       <div className="mt-8">
-        {!!faqData && faqData.faqs.length > 0 ? (
-          <div className="space-y-6">
-            {faqData.faqs.map((faq, index) => (
-              <div key={index} className="space-y-4">
-                <p className="font-bold text-lg">{faq.question}</p>
-                <p>{faq.answer}</p>
-              </div>
-            ))}
-
-            <Button size={"lg"} className="w-full mt-6">
-              Generate PDF
-            </Button>
+        {isLoading ? (
+          <div className="flex flex-row w-fit mx-auto gap-2 items-center">
+            <LoadingSpinner className="size-4" />
+            <p className="text-sm font-medium text-center">
+              Generating PDF, please wait...
+            </p>
           </div>
+        ) : !!faqData && faqData.faqs.length > 0 ? (
+          <>
+            <PDFViewer style={{ width: "100%", height: "90vh" }}>
+              <PdfDocument faqs={faqData.faqs} />
+            </PDFViewer>
+
+            <div className="flex mt-6 gap-3">
+              <Button asChild size={"lg"} className="flex-1">
+                <PDFDownloadLink
+                  document={<PdfDocument faqs={faqData.faqs} />}
+                  fileName="faqs.pdf"
+                  className="px-4 py-2 bg-blue-600 text-white rounded"
+                >
+                  {({ loading }) =>
+                    loading ? "Generating PDF..." : "Download PDF"
+                  }
+                </PDFDownloadLink>
+              </Button>
+
+              <Button
+                size="lg"
+                variant={"ghost"}
+                onClick={() => {
+                  scrollToTop();
+                  goBack();
+                }}
+              >
+                Edit PDF
+              </Button>
+            </div>
+          </>
         ) : (
           <p className="font-medium text-gray-500">No FAQ has been added</p>
         )}
