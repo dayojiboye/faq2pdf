@@ -21,13 +21,22 @@ export async function POST(req: NextRequest) {
 
   const app = new FirecrawlApp({ apiKey: firecrawlApiKey });
 
-  const scrapeResult = (await app.scrapeUrl(url, {
-    formats: ["markdown", "html"],
-  })) as ScrapeResponse;
+  const scrapeResult = (await app
+    .scrapeUrl(url, {
+      formats: ["markdown", "html"],
+    })
+    .catch((err) => {
+      console.log("Scrape Result Error:", err);
+      return;
+    })) as ScrapeResponse;
 
-  if (!scrapeResult.success) {
+  if (!scrapeResult || !scrapeResult.success) {
     return new Response(
-      JSON.stringify({ message: `Failed to scrape: ${scrapeResult.error}` }),
+      JSON.stringify({
+        message: !scrapeResult
+          ? "Firecrawl error occurred"
+          : `Failed to scrape: ${scrapeResult.error}`,
+      }),
       {
         status: 500,
       }
@@ -70,7 +79,7 @@ Return only a JSON array like:
 
   if (!aiRes.ok) {
     return new Response(
-      JSON.stringify({ message: "Together AI error occurred" }),
+      JSON.stringify({ message: "TogetherAI error occurred" }),
       {
         status: 500,
       }
@@ -95,7 +104,7 @@ Return only a JSON array like:
 
     return Response.json(jsonMatch[0], { status: 200 });
   } catch (err) {
-    console.error(err);
+    console.error("Err:", err);
     const message = err instanceof Error ? err.message : "Unexpected error";
     return new Response(JSON.stringify({ message }), { status: 500 });
   }
