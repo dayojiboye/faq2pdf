@@ -41,7 +41,7 @@ export default function ScrapeForm({ goForward }: { goForward: () => void }) {
 
       if (!res.ok) {
         const data = await res.text();
-        throw new Error(data);
+        throw new Error(JSON.parse(data).message);
       }
 
       const data = await res.json();

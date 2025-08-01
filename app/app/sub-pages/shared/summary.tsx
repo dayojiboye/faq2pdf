@@ -46,7 +46,12 @@ export default function Summary({ goBack, isScrape }: SummaryProps) {
           </div>
         ) : !!faqData && faqData.faqs.length > 0 ? (
           <>
-            <PDFViewer style={{ width: "100%", height: "90vh" }}>
+            <PDFViewer
+              showToolbar={false}
+              width={800}
+              height={800}
+              className="w-full h-[73vh]"
+            >
               <PdfDocument faqs={faqData.faqs} />
             </PDFViewer>
 
@@ -55,7 +60,6 @@ export default function Summary({ goBack, isScrape }: SummaryProps) {
                 <PDFDownloadLink
                   document={<PdfDocument faqs={faqData.faqs} />}
                   fileName="faqs.pdf"
-                  className="px-4 py-2 bg-blue-600 text-white rounded"
                 >
                   {({ loading }) =>
                     loading ? "Generating PDF..." : "Download PDF"
