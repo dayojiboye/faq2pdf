@@ -5,7 +5,7 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 import AppLayout from "@/components/app-layout";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,7 +48,18 @@ export default function RootLayout({
             <Footer />
           </div>
         </NuqsAdapter>
-        <Toaster />
+        <Toaster
+          containerStyle={{
+            zIndex: 99999,
+          }}
+          toastOptions={{
+            style: {
+              zIndex: 99999,
+              fontSize: "14px",
+            },
+            duration: 4000,
+          }}
+        />
       </body>
     </html>
   );
