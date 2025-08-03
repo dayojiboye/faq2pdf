@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 import z from "zod";
 
 export default function ScrapeForm({ goForward }: { goForward: () => void }) {
@@ -46,18 +46,12 @@ export default function ScrapeForm({ goForward }: { goForward: () => void }) {
 
       const data = await res.json();
       if (res.status === 200) {
-        localStorage.setItem(
-          FAQ_FORM_DATA,
-          JSON.stringify({ faqs: JSON.parse(data) })
-        );
+        localStorage.setItem(FAQ_FORM_DATA, JSON.stringify({ faqs: data }));
         goForward();
       } else throw new Error(data.message);
     } catch (err: any) {
       console.error(err);
-      toast(err.message, {
-        id: "scrape-error-toast",
-        position: "top-center",
-      });
+      toast.error(err.message, { id: "scrape-error-toast" });
     } finally {
       setIsLoading(false);
     }
@@ -81,7 +75,7 @@ export default function ScrapeForm({ goForward }: { goForward: () => void }) {
             name="url"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>FAQ URL</FormLabel>
+                <FormLabel>Source URL</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
