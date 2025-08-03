@@ -1,19 +1,19 @@
 import { parseAsStringLiteral, useQueryState } from "nuqs";
 import React from "react";
 import Summary from "../shared/summary";
-import ScrapeForm from "./scrape-form";
+import ExtractForm from "./extract-form";
 
 const viewValues = ["form", "summary"] as const;
 
-export default function ScrapeMode() {
+export default function ExtractMode() {
   const [view, setView] = useQueryState(
     "view",
     parseAsStringLiteral(viewValues)
   );
 
   if (view === "summary") {
-    return <Summary goBack={() => setView("form")} isScrape />;
+    return <Summary goBack={() => setView("form")} isExtract />;
   }
 
-  return <ScrapeForm goForward={() => setView("summary")} />;
+  return <ExtractForm goForward={() => setView("summary")} />;
 }

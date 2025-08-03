@@ -74,6 +74,9 @@ export async function POST(req: NextRequest) {
 
   await browser.close();
 
+  console.log("HTML: ", html);
+
+  // There's still room for improvement
   const prompt = dedent`
  The following is raw HTML content from an FAQ page.
 Extract all real question and answer pairs and return them as a JSON array like:
