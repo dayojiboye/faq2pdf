@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import z from "zod";
 
-export default function ScrapeForm({ goForward }: { goForward: () => void }) {
+export default function ExtractForm({ goForward }: { goForward: () => void }) {
   const [isLoading, setIsLoading] = React.useState(false);
 
   const urlSchema = z.object({
@@ -31,10 +31,10 @@ export default function ScrapeForm({ goForward }: { goForward: () => void }) {
     },
   });
 
-  async function scrapeUrl(url: string) {
+  async function extractFAQ(url: string) {
     setIsLoading(true);
     try {
-      const res = await fetch("/api/scrape", {
+      const res = await fetch("/api/extract", {
         method: "POST",
         body: JSON.stringify({ url }),
       });
@@ -51,14 +51,14 @@ export default function ScrapeForm({ goForward }: { goForward: () => void }) {
       } else throw new Error(data.message);
     } catch (err: any) {
       console.error(err);
-      toast.error(err.message, { id: "scrape-error-toast" });
+      toast.error(err.message, { id: "extract-error-toast" });
     } finally {
       setIsLoading(false);
     }
   }
 
   function onSubmit(values: { url: string }) {
-    scrapeUrl(values.url);
+    extractFAQ(values.url);
   }
 
   return (
@@ -92,10 +92,10 @@ export default function ScrapeForm({ goForward }: { goForward: () => void }) {
           >
             {isLoading ? (
               <>
-                <Loader2 className="animate-spin" /> Scraping...
+                <Loader2 className="animate-spin" /> Extracting...
               </>
             ) : (
-              "Scrape"
+              "Extract"
             )}
           </Button>
         </form>

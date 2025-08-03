@@ -15,7 +15,7 @@ export default function HomePage() {
           <Link href="/app?mode=manual">Enter FAQs manually</Link>
         </ClearFormStorage>
         <ClearFormStorage variant="secondary" className="w-full">
-          <Link href="/app?mode=scrape">Scrape from web page</Link>
+          <Link href="/app?mode=extract">Extract from web page</Link>
         </ClearFormStorage>
       </div>
     </>

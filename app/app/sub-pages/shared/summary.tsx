@@ -10,10 +10,10 @@ import { scrollToTop } from "@/lib/utils";
 
 type SummaryProps = {
   goBack: () => void;
-  isScrape?: boolean;
+  isExtract?: boolean;
 };
 
-export default function Summary({ goBack, isScrape }: SummaryProps) {
+export default function Summary({ goBack, isExtract }: SummaryProps) {
   const [faqData, setFaqData] = React.useState<FAQForm>();
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -67,7 +67,7 @@ export default function Summary({ goBack, isScrape }: SummaryProps) {
                 </PDFDownloadLink>
               </Button>
 
-              {!isScrape && (
+              {!isExtract && (
                 <Button
                   size="lg"
                   variant={"ghost"}
