@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="container mx-auto px-4 py-3 flex flex-wrap gap-2 items-center justify-between">
         <div className="w-fit">
           <p className="inline text-sm">
-            Made by{" "}
+            Built by{" "}
             <Button
               asChild
               variant="link"
