@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  await page.goto(url, { waitUntil: "networkidle2" });
+  await page.goto(url, { waitUntil: "load" });
 
   // Expand accordions, click toggles, unhide hidden content
   await page.evaluate(() => {
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
   });
 
   // Wait for JS-based FAQ content to render
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  await new Promise((resolve) => setTimeout(resolve, 8000));
 
   // Return full page HTML (cleaned)
   const html = await page.evaluate(() => {
@@ -72,14 +72,26 @@ export async function POST(req: NextRequest) {
     return clone.innerHTML;
   });
 
+  // Also grab innerText
+  const text = await page.evaluate(() => {
+    const clone = document.body.cloneNode(true) as HTMLElement;
+
+    clone
+      .querySelectorAll("script, style, nav, footer, header, aside")
+      .forEach((el) => el.remove());
+
+    return clone.innerText;
+  });
+
   await browser.close();
 
   console.log("HTML: ", html);
+  console.log("Text: ", text);
 
   // There's still room for improvement
   const prompt = dedent`
- The following is raw HTML content from an FAQ page.
-Extract all real question and answer pairs and return them as a JSON array like:
+You are a helpful assistant extracting real FAQs from a webpage.
+The following contains the content of a web page that may include FAQs. Your task is to extract real **question and answer pairs** and return them in valid JSON format like this:
 
 [
   {
@@ -88,13 +100,20 @@ Extract all real question and answer pairs and return them as a JSON array like:
   }
 ]
 
-Only include real Q&A content — ignore menus, sidebars, or headers.
+Only include **real FAQs** — ignore irrelevant content like menus, footers, headers, navigation, etc.
 Return only 37 items.
 
-HTML:
+## Page Text (visible to users):
+"""
+${text}
+"""
+
+## Raw HTML (structure and hidden context):
 """
 ${html}
 """
+
+Return only the JSON array — no explanation, no markdown formatting.
   `;
 
   const aiRes = await ai.models.generateContent({
