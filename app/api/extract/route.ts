@@ -4,10 +4,13 @@ import { GoogleGenAI } from "@google/genai";
 import dedent from "dedent";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
+import { getIp } from "@/lib/get-ip";
 
 export async function POST(req: NextRequest) {
   const { url } = await req.json();
   const geminiApiKey = process.env.GEMINI_API_KEY;
+
+  const ipAddress = await getIp();
 
   const redis = new Redis({
     url: process.env.UPSTASH_REDIS_REST_URL,
@@ -20,10 +23,7 @@ export async function POST(req: NextRequest) {
     prefix: "faq2pdf",
   });
 
-  // Using a constant string to limit all requests with a single ratelimit.
-  // Can also use a userID, apiKey or ip address for individual limits.
-  const identifier = "faq2pdfRateLimit";
-  const { success, remaining, reset } = await ratelimit.limit(identifier);
+  const { success, remaining, reset } = await ratelimit.limit(ipAddress);
 
   console.log("Rate Limit: ", { success, remaining, reset });
 

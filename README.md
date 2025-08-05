@@ -14,7 +14,7 @@ A smart, flexible tool for extracting Frequently Asked Questions (FAQs) from any
 
 - Cleans and parses content into structured Q&A format (JSON)
 
-- Headless browser powered (e.g., Playwright or Puppeteer)
+- Headless browser powered
 
 - Skips common non-content areas (headers, footers, nav, etc.)
 
