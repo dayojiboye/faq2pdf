@@ -1,4 +1,4 @@
-![App Screenshot](https://ik.imagekit.io/mrdee/IMG_7831.JPG?updatedAt=1754387102992)
+![App Screenshot]([https://ik.imagekit.io/mrdee/IMG_7831.JPG?updatedAt=1754387102992](https://ik.imagekit.io/mrdee/IMG_7831.JPG?updatedAt=1754387269301))
 
 # FAQ Extractor
 
