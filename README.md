@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![App Screenshot](https://ik.imagekit.io/mrdee/IMG_7831-removebg-preview.png?updatedAt=1754383595564)
 
-## Getting Started
+# FAQ Extractor
 
-First, run the development server:
+A smart, flexible tool for extracting Frequently Asked Questions (FAQs) from any public webpage.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Automatically scrapes and parses visible FAQ content
+Supports manual addition of question-answer pairs
+Lets users view, edit, and download the final FAQs as a clean PDF
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Scrapes visible and hidden FAQs from webpages
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Expands accordions, toggles, and other JS-driven elements
 
-## Learn More
+- Supports manual FAQ entry/editing
 
-To learn more about Next.js, take a look at the following resources:
+- Cleans and parses content into structured Q&A format (JSON)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Headless browser powered (e.g., Playwright or Puppeteer)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Skips common non-content areas (headers, footers, nav, etc.)
 
-## Deploy on Vercel
+- Great for training AI, chatbots, or building help centers
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Tech Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next.js](https://nextjs.org/) with TypeScript for app framework
+- [Shadcn](https://ui.shadcn.com/) for UI components and [Tailwind](https://tailwindcss.com/) for styling
+- [Upstash Redis](https://upstash.com/) for rate limiting
+- [Google Gemini](https://ai.google.dev/) for AI-powered FAQ extraction
+- [Puppeteer](https://pptr.dev/) for headless browser automation and FAQ content extraction from dynamic web pages
+
+## Cloning & Running
+
+1.  Clone the repo:
+    `git clone https://github.com/dayojiboye/faq2pdf.git`
+
+2.  Create a .env file and add your Gemini API key: GEMINI_API_KEY=
+
+3.  Install dependencies:
+    `npm install`
+
+4.  Run the app:
+    `npm run dev`
+
+## Future Tasks
+
+[ ] Edit scraped/extracted results
+
+[ ] Allow company or brand logo
+
+[ ] Allow merging of manual entries and scraped FAQs in cases where users want to add to what was extracted from their web page
