@@ -1,4 +1,5 @@
 import ClearFormStorage from "@/components/clear-form-storage";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,6 +24,14 @@ export default function HomePage() {
         <ClearFormStorage variant="secondary" className="w-full">
           <Link href="/app?mode=extract">Extract from web page</Link>
         </ClearFormStorage>
+        <Button
+          asChild
+          variant={"link"}
+          size="text"
+          className="mx-auto block mt-6"
+        >
+          <Link href="">Continue from last FAQ</Link>
+        </Button>
       </div>
     </>
   );
