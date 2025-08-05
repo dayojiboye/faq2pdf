@@ -4,9 +4,9 @@
 
 A smart, flexible tool for extracting Frequently Asked Questions (FAQs) from any public webpage.
 
-Automatically scrapes and parses visible FAQ content
-Supports manual addition of question-answer pairs
-Lets users view, edit, and download the final FAQs as a clean PDF
+- Automatically scrapes and parses visible FAQ content
+- Supports manual addition of question-answer pairs
+- Lets users view, edit, and download the final FAQs as a clean PDF
 
 ## Features
 
@@ -47,8 +47,8 @@ Lets users view, edit, and download the final FAQs as a clean PDF
 
 ## Future Tasks
 
-[ ] Edit scraped/extracted results
+- [ ] Edit scraped/extracted results
 
-[ ] Allow company or brand logo
+- [ ] Allow company or brand logo
 
-[ ] Allow merging of manual entries and scraped FAQs in cases where users want to add to what was extracted from their web page
+- [ ] Allow merging of manual entries and scraped FAQs in cases where users want to add to what was extracted from their web page
