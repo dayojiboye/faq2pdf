@@ -2,11 +2,37 @@ import { NextRequest } from "next/server";
 import puppeteer from "puppeteer";
 import { GoogleGenAI } from "@google/genai";
 import dedent from "dedent";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
 
-// To-Do: Add rate limiter for AI request
 export async function POST(req: NextRequest) {
   const { url } = await req.json();
   const geminiApiKey = process.env.GEMINI_API_KEY;
+
+  const redis = new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN,
+  });
+
+  const ratelimit = new Ratelimit({
+    redis: redis,
+    limiter: Ratelimit.fixedWindow(5, "1 h"), // 5 requests per 1 hour
+    prefix: "faq2pdf",
+  });
+
+  // Using a constant string to limit all requests with a single ratelimit.
+  // Can also use a userID, apiKey or ip address for individual limits.
+  const identifier = "faq2pdfRateLimit";
+  const { success, remaining, reset } = await ratelimit.limit(identifier);
+
+  console.log("Rate Limit: ", { success, remaining, reset });
+
+  if (!success) {
+    return new Response(
+      JSON.stringify({ message: "Too many requests. Please try again later." }),
+      { status: 429 }
+    );
+  }
 
   const ai = new GoogleGenAI({
     apiKey: geminiApiKey,

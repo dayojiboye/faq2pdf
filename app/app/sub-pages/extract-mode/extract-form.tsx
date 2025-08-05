@@ -50,7 +50,7 @@ export default function ExtractForm({ goForward }: { goForward: () => void }) {
         goForward();
       } else throw new Error(data.message);
     } catch (err: any) {
-      console.error(err);
+      // console.error(err);
       toast.error(err.message, { id: "extract-error-toast" });
     } finally {
       setIsLoading(false);
