@@ -7,6 +7,7 @@ import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import PdfDocument from "@/components/pdf-document";
 import LoadingSpinner from "@/components/loading-spinner";
 import { scrollToTop } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 type SummaryProps = {
   goBack: () => void;
@@ -16,6 +17,7 @@ type SummaryProps = {
 export default function Summary({ goBack, isExtract }: SummaryProps) {
   const [faqData, setFaqData] = React.useState<FAQForm>();
   const [isLoading, setIsLoading] = React.useState(true);
+  const router = useRouter();
 
   React.useEffect(() => {
     const loadingTimeout = setTimeout(() => {
@@ -67,18 +69,19 @@ export default function Summary({ goBack, isExtract }: SummaryProps) {
                 </PDFDownloadLink>
               </Button>
 
-              {!isExtract && (
-                <Button
-                  size="lg"
-                  variant={"ghost"}
-                  onClick={() => {
-                    scrollToTop();
-                    goBack();
-                  }}
-                >
-                  Edit PDF
-                </Button>
-              )}
+              <Button
+                size="lg"
+                variant={"ghost"}
+                onClick={() => {
+                  if (isExtract) {
+                    return router.replace("/app?mode=manual&view=form");
+                  }
+                  scrollToTop();
+                  goBack();
+                }}
+              >
+                Edit PDF
+              </Button>
             </div>
           </>
         ) : (

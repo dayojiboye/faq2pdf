@@ -1,5 +1,5 @@
 import ClearFormStorage from "@/components/clear-form-storage";
-import { Button } from "@/components/ui/button";
+import ContinueLastFaq from "@/components/continue-last-faq";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,11 +7,12 @@ export default function HomePage() {
   return (
     <>
       <Image
+        priority
         alt="FAQ2PDF"
-        width={500}
-        height={500}
+        width={300}
+        height={300}
         src="/logo.png"
-        className="h-auto object-cover w-[180px] mx-auto"
+        className="h-[50px] object-cover w-[180px] mx-auto"
       />
       <p className="mt-2 mx-auto text-center">
         Generate professional PDF documents from your FAQs using AI. Fast,
@@ -24,14 +25,7 @@ export default function HomePage() {
         <ClearFormStorage variant="secondary" className="w-full">
           <Link href="/app?mode=extract">Extract from web page</Link>
         </ClearFormStorage>
-        <Button
-          asChild
-          variant={"link"}
-          size="text"
-          className="mx-auto block mt-6"
-        >
-          <Link href="">Continue from last FAQ</Link>
-        </Button>
+        <ContinueLastFaq />
       </div>
     </>
   );

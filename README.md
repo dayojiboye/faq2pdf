@@ -20,7 +20,7 @@ A smart, flexible tool for extracting Frequently Asked Questions (FAQs) from any
 
 - Great for training AI, chatbots, or building help centers
 
-### Tech Stack
+## Tech Stack
 
 - [Next.js](https://nextjs.org/) with TypeScript for app framework
 - [Shadcn](https://ui.shadcn.com/) for UI components and [Tailwind](https://tailwindcss.com/) for styling
@@ -33,7 +33,7 @@ A smart, flexible tool for extracting Frequently Asked Questions (FAQs) from any
 1.  Clone the repo:
     `git clone https://github.com/dayojiboye/faq2pdf.git`
 
-2.  Create a .env file and add your Gemini API key: GEMINI_API_KEY=
+2.  Create a .env file and add your Gemini API key: `GEMINI_API_KEY=`
 
 3.  Install dependencies:
     `npm install`
@@ -43,8 +43,4 @@ A smart, flexible tool for extracting Frequently Asked Questions (FAQs) from any
 
 ## Future Tasks
 
-- [ ] Edit scraped/extracted results
-
 - [ ] Allow company or brand logo
-
-- [ ] Allow merging of manual entries and scraped FAQs in cases where users want to add to what was extracted from their web page
