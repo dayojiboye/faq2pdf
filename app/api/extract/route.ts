@@ -29,7 +29,9 @@ export async function POST(req: NextRequest) {
 
   if (!success) {
     return new Response(
-      JSON.stringify({ message: "Too many requests. Please try again later." }),
+      JSON.stringify({
+        message: "You've reached the limit. Please try again in an hour.",
+      }),
       { status: 429 }
     );
   }

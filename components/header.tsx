@@ -8,6 +8,7 @@ export default function Header() {
       <div className="container mx-auto h-full px-4 flex items-center">
         <Link href="/" className="flex w-fit h-fit">
           <Image
+            priority
             alt="FAQ2PDF"
             width={200}
             height={200}
