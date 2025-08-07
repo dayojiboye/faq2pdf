@@ -23,6 +23,12 @@ export async function POST(req: NextRequest) {
     prefix: "faq2pdf",
   });
 
+  if (!ratelimit) {
+    return new Response(JSON.stringify({ message: "Redis error occurred" }), {
+      status: 500,
+    });
+  }
+
   const { success, remaining, reset } = await ratelimit.limit(ipAddress);
 
   console.log("Rate Limit: ", { success, remaining, reset });
