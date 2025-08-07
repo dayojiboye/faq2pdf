@@ -50,7 +50,7 @@ export default function ExtractForm({ goForward }: { goForward: () => void }) {
         goForward();
       } else throw new Error(data.message);
     } catch (err: any) {
-      console.error(err);
+      // console.error(err);
       toast.error(err.message, { id: "extract-error-toast" });
     } finally {
       setIsLoading(false);
@@ -60,14 +60,6 @@ export default function ExtractForm({ goForward }: { goForward: () => void }) {
   function onSubmit(values: { url: string }) {
     extractFAQ(values.url);
   }
-
-  React.useEffect(() => {
-    console.log({
-      REDIS_URL: process.env.UPSTASH_REDIS_REST_URL,
-      REDIS_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
-      GEMINI_API_KEY: process.env.GEMINI_API_KEY,
-    });
-  }, []);
 
   return (
     <>

@@ -12,6 +12,16 @@ export async function POST(req: NextRequest) {
 
   const ipAddress = await getIp();
 
+  if (
+    !geminiApiKey ||
+    !process.env.UPSTASH_REDIS_REST_URL ||
+    !process.env.UPSTASH_REDIS_REST_TOKEN
+  ) {
+    return new Response(JSON.stringify({ message: "Missing API key(s)" }), {
+      status: 500,
+    });
+  }
+
   const redis = new Redis({
     url: process.env.UPSTASH_REDIS_REST_URL,
     token: process.env.UPSTASH_REDIS_REST_TOKEN,
@@ -52,12 +62,6 @@ export async function POST(req: NextRequest) {
   });
 
   const page = await browser.newPage();
-
-  if (!geminiApiKey) {
-    return new Response(JSON.stringify({ message: "Missing API key" }), {
-      status: 500,
-    });
-  }
 
   if (!url) {
     return new Response(JSON.stringify({ message: "URL must not be empty" }), {
