@@ -5,7 +5,7 @@ import { FAQ } from "@/lib/types";
 const styles = StyleSheet.create({
   page: {
     padding: 40,
-    fontSize: 16,
+    fontSize: 12,
     fontFamily: "Helvetica",
   },
   section: {
@@ -20,8 +20,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    marginBottom: 20,
+    marginBottom: 24,
     textAlign: "center",
+    fontWeight: "bold",
   },
 });
 
