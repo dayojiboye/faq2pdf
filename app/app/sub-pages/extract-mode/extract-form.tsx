@@ -61,6 +61,14 @@ export default function ExtractForm({ goForward }: { goForward: () => void }) {
     extractFAQ(values.url);
   }
 
+  React.useEffect(() => {
+    console.log({
+      REDIS_URL: process.env.UPSTASH_REDIS_REST_URL,
+      REDIS_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
+      GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+    });
+  }, []);
+
   return (
     <>
       <PageHeader
