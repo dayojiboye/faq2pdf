@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "npx puppeteer browsers install"
   },
   "dependencies": {
     "@google/genai": "^1.12.0",
@@ -23,7 +24,7 @@
     "next": "15.4.3",
     "next-themes": "^0.4.6",
     "nuqs": "^2.4.3",
-    "puppeteer": "^24.15.0",
+    "puppeteer": "^24.16.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.61.1",
