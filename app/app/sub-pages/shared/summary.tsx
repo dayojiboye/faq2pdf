@@ -6,7 +6,6 @@ import React from "react";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import PdfDocument from "@/components/pdf-document";
 import LoadingSpinner from "@/components/loading-spinner";
-import { scrollToTop } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 
 type SummaryProps = {
@@ -76,7 +75,6 @@ export default function Summary({ goBack, isExtract }: SummaryProps) {
                   if (isExtract) {
                     return router.replace("/app?mode=manual&view=form");
                   }
-                  scrollToTop();
                   goBack();
                 }}
               >

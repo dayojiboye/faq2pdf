@@ -4,7 +4,6 @@ import React from "react";
 import { Button } from "./ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { scrollToTop } from "@/lib/utils";
 
 type PageHeaderProps = {
   title?: string;
@@ -26,7 +25,6 @@ export default function PageHeader({
         size={"text"}
         className="mb-6"
         onClick={() => {
-          scrollToTop();
           if (onBack) return onBack();
           router.back();
         }}
