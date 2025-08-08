@@ -2,11 +2,10 @@ import React from "react";
 import { useQueryState, parseAsStringLiteral } from "nuqs";
 import Summary from "../shared/summary";
 import dynamic from "next/dynamic";
-import FullScreenLoader from "@/components/full-screen-loader";
 
 const FaqForm = dynamic(() => import("./faq-form"), {
   ssr: false,
-  loading: () => <FullScreenLoader />,
+  loading: () => <div></div>,
 });
 
 const viewValues = ["form", "summary"] as const;
