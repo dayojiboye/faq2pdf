@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
 
   const ratelimit = new Ratelimit({
     redis: redis,
-    limiter: Ratelimit.fixedWindow(50, "1 d"), // 5 requests per 1 hour
+    limiter: Ratelimit.fixedWindow(5, "1 h"), // 5 requests per 1 hour
     prefix: "faq2pdf",
   });
 
