@@ -1,12 +1,7 @@
 import React from "react";
 import { useQueryState, parseAsStringLiteral } from "nuqs";
 import Summary from "../shared/summary";
-import dynamic from "next/dynamic";
-
-const FaqForm = dynamic(() => import("./faq-form"), {
-  ssr: false,
-  loading: () => <div></div>,
-});
+import FaqForm from "./faq-form";
 
 const viewValues = ["form", "summary"] as const;
 
