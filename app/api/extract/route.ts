@@ -1,5 +1,4 @@
 import { NextRequest } from "next/server";
-import puppeteer from "puppeteer";
 import { GoogleGenAI } from "@google/genai";
 import dedent from "dedent";
 import { Ratelimit } from "@upstash/ratelimit";
@@ -9,6 +8,7 @@ import { getIp } from "@/lib/get-ip";
 export async function POST(req: NextRequest) {
   const { url } = await req.json();
   const geminiApiKey = process.env.GEMINI_API_KEY;
+  const isVercel = !!process.env.VERCEL_ENV;
 
   const ipAddress = await getIp();
 
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
 
   const ratelimit = new Ratelimit({
     redis: redis,
-    limiter: Ratelimit.fixedWindow(5, "1 h"), // 5 requests per 1 hour
+    limiter: Ratelimit.fixedWindow(50, "1 d"), // 5 requests per 1 hour
     prefix: "faq2pdf",
   });
 
@@ -62,10 +62,25 @@ export async function POST(req: NextRequest) {
     apiKey: geminiApiKey,
   });
 
-  const browser = await puppeteer.launch({
+  let browser;
+  let puppeteer: any;
+  let launchOptions: any = {
     headless: true,
-    defaultViewport: { width: 1200, height: 800 },
-  });
+  };
+
+  if (isVercel) {
+    const chromium = (await import("@sparticuz/chromium")).default;
+    puppeteer = await import("puppeteer-core");
+    launchOptions = {
+      ...launchOptions,
+      args: chromium.args,
+      executablePath: await chromium.executablePath(),
+    };
+  } else {
+    puppeteer = await import("puppeteer");
+  }
+
+  browser = await puppeteer.launch(launchOptions);
 
   const page = await browser.newPage();
 
@@ -121,7 +136,7 @@ export async function POST(req: NextRequest) {
     return clone.innerText;
   });
 
-  await browser.close();
+  if (browser) await browser.close();
 
   console.log("HTML: ", html);
   console.log("Text: ", text);
