@@ -12,12 +12,6 @@ export async function POST(req: NextRequest) {
 
   const ipAddress = await getIp();
 
-  console.log({
-    REDIS_URL: process.env.UPSTASH_REDIS_REST_URL,
-    REDIS_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
-    GEMINI_API_KEY: geminiApiKey,
-  });
-
   if (
     !geminiApiKey ||
     !process.env.UPSTASH_REDIS_REST_URL ||
