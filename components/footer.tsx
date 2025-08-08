@@ -1,30 +1,13 @@
 import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import GitHubLink from "./github-link";
 
 export default function Footer() {
   return (
     <footer className="mt-auto w-full">
-      <div className="container mx-auto px-4 py-3 flex flex-wrap gap-2 items-center justify-between">
-        <div className="w-fit">
-          <p className="inline text-sm">
-            Built by{" "}
-            <Button
-              asChild
-              variant="link"
-              size={"text"}
-              className="whitespace-nowrap"
-            >
-              <Link
-                href="https://github.com/dayojiboye"
-                target="_blank"
-                referrerPolicy="no-referrer"
-              >
-                Dee 👑
-              </Link>
-            </Button>
-          </p>
-        </div>
+      <div className="container mx-auto px-4 py-3 flex flex-wrap gap-4 items-center justify-center">
+        <GitHubLink />
 
         <p className="w-fit text-sm">
           Powered by{" "}
@@ -32,7 +15,7 @@ export default function Footer() {
             asChild
             variant="link"
             size={"text"}
-            className="whitespace-nowrap"
+            className="whitespace-nowrap underline"
           >
             <Link
               href="https://ai.google.dev/"
@@ -47,7 +30,7 @@ export default function Footer() {
             asChild
             variant="link"
             size={"text"}
-            className="whitespace-nowrap"
+            className="whitespace-nowrap underline"
           >
             <Link
               href="https://pptr.dev/"
