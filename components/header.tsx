@@ -13,7 +13,7 @@ export default function Header() {
             width={200}
             height={200}
             src="/logo.png"
-            className="h-auto object-contain w-[130px]"
+            className="h-auto object-contain w-[100px]"
           />
         </Link>
       </div>

@@ -16,7 +16,10 @@ export default function ContinueLastFaq() {
     }, 100);
 
     const savedData = localStorage.getItem(FAQ_FORM_DATA);
-    if (savedData) setFaqData(JSON.parse(savedData));
+    if (savedData) {
+      const parsedFAQData = JSON.parse(savedData) as FAQForm;
+      setFaqData(parsedFAQData);
+    }
 
     return () => clearTimeout(loadingTimeout);
   }, []);

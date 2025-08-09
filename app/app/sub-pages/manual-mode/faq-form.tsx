@@ -54,12 +54,6 @@ export default function FaqForm({ goForward }: { goForward: () => void }) {
         form.setValue(key as keyof FAQForm, value as FAQForm[keyof FAQForm]);
       });
     }
-
-    const subscription = form.watch((value) => {
-      localStorage.setItem(FAQ_FORM_DATA, JSON.stringify(value));
-    });
-
-    return () => subscription.unsubscribe();
   }, [form]);
 
   return (
@@ -71,7 +65,10 @@ export default function FaqForm({ goForward }: { goForward: () => void }) {
 
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(goForward)}
+          onSubmit={form.handleSubmit((value) => {
+            localStorage.setItem(FAQ_FORM_DATA, JSON.stringify(value));
+            goForward();
+          })}
           className="mt-8 space-y-6"
         >
           {fields.map((faqItem, index) => (
