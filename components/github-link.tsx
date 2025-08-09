@@ -11,7 +11,7 @@ export default function GitHubLink() {
       className="bg-icon-background border border-icon-border rounded-[2px] size-6"
     >
       <Link
-        href="https://github.com/dayojiboye"
+        href="https://github.com/dayojiboye/faq2pdf"
         target="_blank"
         referrerPolicy="no-referrer"
       >
