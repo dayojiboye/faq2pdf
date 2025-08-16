@@ -20,9 +20,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FAQ 2 PDF",
+  title: "Faq2Pdf",
   description:
     "Generate professional PDF documents from your FAQs using AI. Fast, accurate, and hassle-free.",
+  verification: {
+    other: {
+      "google-site-verification": "xeU24CdlJRRatySLb_RswIgDnXrOil8jL8KWxVUzV4M",
+    },
+  },
 };
 
 export default function RootLayout({
